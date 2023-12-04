@@ -29,4 +29,8 @@
 .icon {
   width: space.$s6;
   margin-right: space.$s3;
+
+  &.isCollapsed {
+    transform: scaleX(-1);
+  }
 }
