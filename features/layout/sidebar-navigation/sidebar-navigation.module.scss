@@ -18,10 +18,6 @@
   &.isCollapsed {
     @media (min-width: breakpoint.$desktop) {
       width: 5.1875rem;
-
-      .logo {
-        width: 1.4375rem;
-      }
     }
   }
 }
@@ -49,10 +45,36 @@
 }
 
 .logo {
+  // Noticing code repetition, logos inherit from this class
+  @media (min-width: breakpoint.$desktop) {
+    margin: space.$s0 space.$s4;
+  }
+}
+
+.logoLarge {
+  composes: logo;
   width: 7.375rem;
 
   @media (min-width: breakpoint.$desktop) {
-    margin: space.$s0 space.$s4;
+    &.isCollapsed {
+      display: none;
+    }
+  }
+}
+
+.logoSmall {
+  composes: logo;
+  width: 1.4375rem;
+
+  // Small logo should be hidden by default (because rendering both
+  // small and large logos next to each other and conditionally displaying
+  // one or the other based on breakpoints (isCollapsed class).
+  display: none;
+
+  @media (min-width: breakpoint.$desktop) {
+    &.isCollapsed {
+      display: block;
+    }
   }
 }
 
