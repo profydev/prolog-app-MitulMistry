@@ -1,4 +1,4 @@
-import capitalize from "lodash/capitalize";
+import { ProjectStatus } from "@api/projects.types";
 import mockProjects from "../fixtures/projects.json";
 
 describe("Project List", () => {
@@ -22,6 +22,11 @@ describe("Project List", () => {
 
     it("renders the projects", () => {
       const languageNames = ["React", "Node.js", "Python"];
+      const statusToText = {
+        [ProjectStatus.info]: "Stable",
+        [ProjectStatus.warning]: "Warning",
+        [ProjectStatus.error]: "Critical",
+      };
 
       // get all project cards
       cy.get("main")
@@ -32,7 +37,8 @@ describe("Project List", () => {
           cy.wrap($el).contains(languageNames[index]);
           cy.wrap($el).contains(mockProjects[index].numIssues);
           cy.wrap($el).contains(mockProjects[index].numEvents24h);
-          cy.wrap($el).contains(capitalize(mockProjects[index].status));
+          const status = mockProjects[index].status as ProjectStatus;
+          cy.wrap($el).contains(statusToText[status]);
           cy.wrap($el)
             .find("a")
             .should("have.attr", "href", "/dashboard/issues");
