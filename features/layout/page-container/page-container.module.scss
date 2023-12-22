@@ -5,27 +5,45 @@
 @use "@styles/misc";
 
 .container {
-  display: flex;
-  flex-direction: column;
+  // display: flex;
+  // flex-direction: column;
+  height: 100vh;
+  display: grid;
+  grid-template:
+    "navigation" auto "content" 1fr "footer" auto / 1fr;
   background: color.$gray-900;
 
   @media (min-width: breakpoint.$desktop) {
-    flex-direction: row;
+    // flex-direction: row;
+    // display: grid;
+    grid-template:
+      "navigation content" 1fr "navigation footer" auto / auto 1fr;
   }
 }
 
+.navigation {
+  // @media (min-width: breakpoint.$desktop) {
+  //   grid-area: navigation;
+  // }
+  grid-area: navigation;
+}
+
 .main {
-  flex: 1;
+  // flex: 1;
+  display: flex;
+  grid-area: content;
 }
 
 .contentContainer {
-  min-height: calc(100vh - 2 * space.$s8 - misc.$header-height);
+  flex: 1;
+
+  // min-height: calc(100vh - 2 * space.$s8 - misc.$header-height);
   margin-top: misc.$header-height;
   padding: space.$s8 space.$s3;
   background: white;
 
   @media (min-width: breakpoint.$desktop) {
-    min-height: calc(100vh - space.$s3 - 2 * space.$s8);
+    // min-height: calc(100vh - space.$s3 - 2 * space.$s8);
     margin-top: space.$s3;
     padding: space.$s8;
     border-top-left-radius: space.$s10;
