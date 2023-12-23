@@ -9,15 +9,24 @@
   // flex-direction: column;
   height: 100vh;
   display: grid;
-  grid-template:
-    "navigation" auto "content" 1fr "footer" auto / 1fr;
-  background: color.$gray-900;
+  grid-template: "navigation" auto "content" 1fr "footer" auto / 1fr;
+  // grid-template-areas:
+  //   "navigation"
+  //   "content"
+  //   "footer";
+  // grid-template-columns: 1fr;
+  // grid-template-rows: auto 1fr auto;
+  // background: color.$gray-900;
 
   @media (min-width: breakpoint.$desktop) {
     // flex-direction: row;
     // display: grid;
-    grid-template:
-      "navigation content" 1fr "navigation footer" auto / auto 1fr;
+    grid-template: "navigation content" 1fr "navigation footer" auto / auto 1fr;
+    // grid-template-areas:
+    //   "navigation content"
+    //   "navigation footer";
+    // grid-template-columns: auto 1fr;
+    // grid-template-rows: 1fr auto;
   }
 }
 

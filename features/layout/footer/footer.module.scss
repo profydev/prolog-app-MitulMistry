@@ -20,9 +20,12 @@
 
 .version {
   flex: 1;
-
-  // order: 1;
+  order: 1;
   color: color.$gray-400;
+
+  @media (min-width: breakpoint.$desktop) {
+    order: 0;
+  }
 }
 
 .links {
