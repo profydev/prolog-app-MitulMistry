@@ -10,6 +10,7 @@
   height: 100vh;
   display: grid;
   grid-template: "navigation" auto "content" 1fr "footer" auto / 1fr;
+
   // grid-template-areas:
   //   "navigation"
   //   "content"
@@ -22,6 +23,7 @@
     // flex-direction: row;
     // display: grid;
     grid-template: "navigation content" 1fr "navigation footer" auto / auto 1fr;
+
     // grid-template-areas:
     //   "navigation content"
     //   "navigation footer";
