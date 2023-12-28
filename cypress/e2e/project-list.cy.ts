@@ -6,13 +6,23 @@ describe("Project List", () => {
     // setup request mock
     cy.intercept("GET", "https://prolog-api.profy.dev/project", {
       fixture: "projects.json",
-    }).as("getProjects");
+    });
+    // }).as("getProjects");
 
     // open projects page
     cy.visit("http://localhost:3000/dashboard");
 
     // wait for request to resolve
-    cy.wait("@getProjects");
+    // cy.wait("@getProjects");
+  });
+
+  it("shows a loading indicator", () => {
+    // check that the loading indicator is shown
+    cy.get("[data-testid='loading-indicator']").should("be.visible");
+
+    // check that the loading indicator does not exist after loading
+    cy.get("[data-testid='project-list']").should("be.visible");
+    cy.get("[data-testid='loading-indicator']").should("not.exist");
   });
 
   context("desktop resolution", () => {
