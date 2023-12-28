@@ -7,32 +7,58 @@ describe("Issue List", () => {
     // setup request mocks
     cy.intercept("GET", "https://prolog-api.profy.dev/project", {
       fixture: "projects.json",
-    }).as("getProjects");
+    });
     cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=1", {
       fixture: "issues-page-1.json",
-    }).as("getIssuesPage1");
+    });
     cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=2", {
       fixture: "issues-page-2.json",
-    }).as("getIssuesPage2");
+    });
     cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=3", {
       fixture: "issues-page-3.json",
-    }).as("getIssuesPage3");
+    });
+
+    // cy.intercept("GET", "https://prolog-api.profy.dev/project", {
+    //   fixture: "projects.json",
+    // }).as("getProjects");
+    // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=1", {
+    //   fixture: "issues-page-1.json",
+    // }).as("getIssuesPage1");
+    // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=2", {
+    //   fixture: "issues-page-2.json",
+    // }).as("getIssuesPage2");
+    // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=3", {
+    //   fixture: "issues-page-3.json",
+    // }).as("getIssuesPage3");
 
     // open issues page
     cy.visit(`http://localhost:3000/dashboard/issues`);
 
     // wait for request to resolve
-    cy.wait(["@getProjects", "@getIssuesPage1"]);
-    cy.wait(500);
+    // cy.wait(["@getProjects", "@getIssuesPage1"]);
+    // cy.wait(500);
 
     // set button aliases
-    cy.get("button").contains("Previous").as("prev-button");
-    cy.get("button").contains("Next").as("next-button");
+    // cy.get("button").contains("Previous").as("prev-button");
+    // cy.get("button").contains("Next").as("next-button");
+  });
+
+  it("shows a loading indicator", () => {
+    // check that the loading indicator is shown
+    cy.get("[data-testid='loading-indicator']").should("be.visible");
+
+    // check that the loading indicator does not exist after loading
+    cy.get("[data-testid='issue-list']").should("be.visible");
+    cy.get("[data-testid='loading-indicator']").should("not.exist");
   });
 
   context("desktop resolution", () => {
     beforeEach(() => {
       cy.viewport(1025, 900);
+
+      // set button aliases
+      cy.get("button").contains("Previous").as("prev-button");
+      cy.get("button").contains("Next").as("next-button");
     });
 
     it("renders the issues", () => {
@@ -79,8 +105,11 @@ describe("Issue List", () => {
       cy.contains("Page 2 of 3");
 
       cy.reload();
-      cy.wait(["@getProjects", "@getIssuesPage2"]);
-      cy.wait(1500);
+      // wait for loading to finish
+      cy.get("[data-testid='issue-list']").should("be.visible");
+      cy.get("[data-testid='loading-indicator']").should("not.exist");
+      // cy.wait(["@getProjects", "@getIssuesPage2"]);
+      // cy.wait(1500);
       cy.contains("Page 2 of 3");
     });
   });
