@@ -19,7 +19,7 @@ export function ProjectList() {
   if (isError) {
     console.error(error);
     return (
-      <Alert>
+      <Alert data-testid="projects-error-message">
         <AlertIcon src="/icons/alert-circle.svg" />
         <AlertMessage>
           There was a problem while loading the project data

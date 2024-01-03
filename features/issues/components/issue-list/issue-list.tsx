@@ -32,7 +32,7 @@ export function IssueList() {
     console.error(projects.error);
     // return <div>Error loading projects: {projects.error.message}</div>;
     return (
-      <Alert>
+      <Alert data-testid="issues-error-message">
         <AlertIcon src="/icons/alert-circle.svg" />
         <AlertMessage>
           There was a problem while loading the issue data
