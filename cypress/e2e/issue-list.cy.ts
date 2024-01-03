@@ -3,47 +3,10 @@ import mockIssues2 from "../fixtures/issues-page-2.json";
 import mockIssues3 from "../fixtures/issues-page-3.json";
 
 describe("Issue List", () => {
-  beforeEach(() => {
-    // setup request mocks
-    cy.intercept("GET", "https://prolog-api.profy.dev/project", {
-      fixture: "projects.json",
-    });
-    cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=1", {
-      fixture: "issues-page-1.json",
-    });
-    cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=2", {
-      fixture: "issues-page-2.json",
-    });
-    cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=3", {
-      fixture: "issues-page-3.json",
-    });
-
-    // cy.intercept("GET", "https://prolog-api.profy.dev/project", {
-    //   fixture: "projects.json",
-    // }).as("getProjects");
-    // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=1", {
-    //   fixture: "issues-page-1.json",
-    // }).as("getIssuesPage1");
-    // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=2", {
-    //   fixture: "issues-page-2.json",
-    // }).as("getIssuesPage2");
-    // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=3", {
-    //   fixture: "issues-page-3.json",
-    // }).as("getIssuesPage3");
-
+  it("shows a loading indicator", () => {
     // open issues page
     cy.visit(`http://localhost:3000/dashboard/issues`);
 
-    // wait for request to resolve
-    // cy.wait(["@getProjects", "@getIssuesPage1"]);
-    // cy.wait(500);
-
-    // set button aliases
-    // cy.get("button").contains("Previous").as("prev-button");
-    // cy.get("button").contains("Next").as("next-button");
-  });
-
-  it("shows a loading indicator", () => {
     // check that the loading indicator is shown
     cy.get("[data-testid='loading-indicator']").should("be.visible");
 
@@ -52,9 +15,69 @@ describe("Issue List", () => {
     cy.get("[data-testid='loading-indicator']").should("not.exist");
   });
 
+  it("shows an error message", () => {
+    // setup request mock
+    cy.intercept(
+      { url: "https://prolog-api.profy.dev/project", times: 4 },
+      {
+        statusCode: 500,
+      },
+    );
+
+    // open projects page
+    cy.visit("http://localhost:3000/dashboard/issues");
+
+    // check that the error message is shown
+    cy.get("[data-testid='issues-error-message']", { timeout: 15000 })
+      .should("be.visible")
+      // click retry button
+      .find("button")
+      .click();
+
+    cy.get("[data-testid='issue-list']").should("be.visible");
+  });
+
   context("desktop resolution", () => {
     beforeEach(() => {
+      // setup request mocks
+      cy.intercept("GET", "https://prolog-api.profy.dev/project", {
+        fixture: "projects.json",
+      });
+      cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=1", {
+        fixture: "issues-page-1.json",
+      });
+      cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=2", {
+        fixture: "issues-page-2.json",
+      });
+      cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=3", {
+        fixture: "issues-page-3.json",
+      });
+
+      // cy.intercept("GET", "https://prolog-api.profy.dev/project", {
+      //   fixture: "projects.json",
+      // }).as("getProjects");
+      // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=1", {
+      //   fixture: "issues-page-1.json",
+      // }).as("getIssuesPage1");
+      // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=2", {
+      //   fixture: "issues-page-2.json",
+      // }).as("getIssuesPage2");
+      // cy.intercept("GET", "https://prolog-api.profy.dev/issue?page=3", {
+      //   fixture: "issues-page-3.json",
+      // }).as("getIssuesPage3");
+
       cy.viewport(1025, 900);
+
+      // open issues page
+      cy.visit(`http://localhost:3000/dashboard/issues`);
+
+      // wait for request to resolve
+      // cy.wait(["@getProjects", "@getIssuesPage1"]);
+      // cy.wait(500);
+
+      // set button aliases
+      // cy.get("button").contains("Previous").as("prev-button");
+      // cy.get("button").contains("Next").as("next-button");
 
       // set button aliases
       cy.get("button").contains("Previous").as("prev-button");

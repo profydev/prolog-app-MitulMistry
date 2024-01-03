@@ -1,10 +1,16 @@
+import {
+  Alert,
+  AlertButton,
+  AlertIcon,
+  AlertMessage,
+  LoadingIndicator,
+} from "@features/ui";
 import { ProjectCard } from "../project-card";
 import { useGetProjects } from "../../api/use-get-projects";
-import { LoadingIndicator } from "../../../ui/loading-indicator";
 import styles from "./project-list.module.scss";
 
 export function ProjectList() {
-  const { data, isLoading, isError, error } = useGetProjects();
+  const { data, isLoading, isError, error, refetch } = useGetProjects();
 
   if (isLoading) {
     return <LoadingIndicator />;
@@ -12,7 +18,18 @@ export function ProjectList() {
 
   if (isError) {
     console.error(error);
-    return <div>Error: {error.message}</div>;
+    return (
+      <Alert data-testid="projects-error-message">
+        <AlertIcon src="/icons/alert-circle.svg" />
+        <AlertMessage>
+          There was a problem while loading the project data
+        </AlertMessage>
+        <AlertButton onClick={() => refetch()}>
+          Try again
+          <AlertIcon src="/icons/arrow-right.svg" />
+        </AlertButton>
+      </Alert>
+    );
   }
 
   return (

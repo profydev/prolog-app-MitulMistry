@@ -1,0 +1,28 @@
+// @use "@styles/breakpoint";
+@use "@styles/color";
+@use "@styles/font";
+@use "@styles/space";
+
+.alert {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: space.$s4;
+  align-items: center;
+  gap: space.$s3;
+  border-radius: space.$s2;
+  border: 1px solid color.$error-300;
+  background: color.$error-25;
+  color: color.$error-700;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  gap: space.$s2;
+  color: inherit;
+}
+
+.message {
+  flex: 1;
+}
