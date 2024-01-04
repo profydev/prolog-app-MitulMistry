@@ -9,10 +9,7 @@
   align-items: center;
   gap: space.$s2;
   border-radius: space.$s2;
-  border: 1px solid color.$primary-600;
-  background: color.$primary-600;
   box-shadow: shadow.$xs;
-  color: color.$white;
   font: font.$text-sm-medium;
 }
 
@@ -38,4 +35,31 @@
   height: 3rem;
   padding: 0 1.25rem;
   font: font.$text-md-medium;
+}
+
+.primary.default {
+  border: 1px solid color.$primary-600;
+  background: color.$primary-600;
+  color: color.$white;
+
+  &.hover {
+    border-radius: 8px;
+    border: 1px solid color.$primary-700;
+    background: color.$primary-700;
+  }
+
+  &.focus {
+    border: 1px solid color.$primary-600;
+    background: color.$primary-600;
+    outline: 4px solid color.$primary-100;
+    box-shadow:
+      0 0 0 4px #f4ebff,
+      0 1px 2px 0 rgb(16 24 40 / 5%);
+  }
+
+  &.disabled {
+    border: 1px solid color.$primary-200;
+    background: color.$primary-200;
+    box-shadow: 0 1px 2px 0 rgb(16 24 40 / 5%);
+  }
 }

@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ButtonSize } from "./button";
+import { Button, ButtonSize, ButtonColor } from "./button";
 
 // Storybook CSF3 format
 
@@ -9,7 +9,7 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
-  args: { children: "Button CTA" },
+  args: { children: "Button CTA", disabled: false },
 };
 
 export const Small: Story = {
@@ -26,4 +26,8 @@ export const Large: Story = {
 
 export const XLarge: Story = {
   args: { ...Default.args, size: ButtonSize.XLarge },
+};
+
+export const Primary: Story = {
+  args: { ...Default.args, color: ButtonColor.Primary },
 };
