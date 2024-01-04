@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./alert.module.scss";
-import { Button } from "../button";
+import { UnstyledButton } from "../button";
 
 type AlertButtonProps = {
   children: React.ReactNode;
@@ -9,8 +9,8 @@ type AlertButtonProps = {
 
 export function AlertButton({ children, onClick }: AlertButtonProps) {
   return (
-    <Button className={styles.button} type="button" onClick={onClick}>
+    <UnstyledButton className={styles.button} type="button" onClick={onClick}>
       {children}
-    </Button>
+    </UnstyledButton>
   );
 }
