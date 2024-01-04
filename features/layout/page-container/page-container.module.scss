@@ -51,7 +51,7 @@
   // min-height: calc(100vh - 2 * space.$s8 - misc.$header-height);
   margin-top: misc.$header-height;
   padding: space.$s8 space.$s3;
-  background: white;
+  background: color.$color.$white;
 
   @media (min-width: breakpoint.$desktop) {
     // min-height: calc(100vh - space.$s3 - 2 * space.$s8);
