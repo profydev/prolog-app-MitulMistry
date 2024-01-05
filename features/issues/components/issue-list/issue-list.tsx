@@ -6,7 +6,7 @@ import { IssueRow } from "./issue-row";
 import {
   Alert,
   AlertButton,
-  AlertIcon,
+  ButtonIcon,
   AlertMessage,
   LoadingIndicator,
 } from "@features/ui";
@@ -33,7 +33,7 @@ export function IssueList() {
     // return <div>Error loading projects: {projects.error.message}</div>;
     return (
       <Alert data-testid="issues-error-message">
-        <AlertIcon src="/icons/alert-circle.svg" />
+        <ButtonIcon src="/icons/alert-circle.svg" />
         <AlertMessage>
           There was a problem while loading the issue data
         </AlertMessage>
@@ -44,7 +44,7 @@ export function IssueList() {
           }}
         >
           Try again
-          <AlertIcon src="/icons/arrow-right.svg" />
+          <ButtonIcon src="/icons/arrow-right.svg" />
         </AlertButton>
       </Alert>
     );

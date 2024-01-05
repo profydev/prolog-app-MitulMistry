@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta, StoryFn } from "@storybook/react";
-import { Alert, AlertIcon, AlertMessage, AlertButton } from ".";
+import { Alert, AlertMessage, AlertButton } from ".";
+import { ButtonIcon } from "../button";
 
 export default {
   title: "UI/Alert",
@@ -13,13 +14,13 @@ export default {
 
 const Template: StoryFn<typeof Alert> = () => (
   <Alert>
-    <AlertIcon src="/icons/alert-circle.svg" />
+    <ButtonIcon src="/icons/alert-circle.svg" />
     <AlertMessage>
       There was a problem while loading the project data
     </AlertMessage>
     <AlertButton onClick={() => alert("Try again")}>
       Try again
-      <AlertIcon src="/icons/arrow-right.svg" />
+      <ButtonIcon src="/icons/arrow-right.svg" />
     </AlertButton>
   </Alert>
 );

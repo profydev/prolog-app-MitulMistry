@@ -9,7 +9,6 @@
   align-items: center;
   gap: space.$s2;
   border-radius: space.$s2;
-  box-shadow: shadow.$xs;
   font: font.$text-sm-medium;
 }
 
@@ -62,6 +61,7 @@
   border: 1px solid color.$primary-600;
   background: color.$primary-600;
   color: color.$white;
+  box-shadow: shadow.$xs;
 
   &:hover {
     border: 1px solid color.$primary-700;
@@ -89,6 +89,7 @@
   border: 1px solid color.$primary-50;
   background: color.$primary-50;
   color: color.$primary-700;
+  box-shadow: shadow.$xs;
 
   &:hover {
     border: 1px solid color.$primary-100;
@@ -117,6 +118,7 @@
   border: 1px solid color.$gray-300;
   background: color.$white;
   color: color.$gray-700;
+  box-shadow: shadow.$xs;
 
   &:hover {
     border: 1px solid color.$gray-300;
@@ -145,6 +147,7 @@
   border: 1px solid color.$error-600;
   background: color.$error-600;
   color: color.$white;
+  box-shadow: shadow.$xs;
 
   &:hover {
     border: 1px solid color.$error-700;
@@ -170,7 +173,6 @@
 .primary.empty,
 .secondary.empty {
   color: color.$primary-700;
-  box-shadow: none;
 
   &:hover {
     background: color.$primary-50;
@@ -189,7 +191,6 @@
 
 .gray.empty {
   color: color.$gray-500;
-  box-shadow: none;
 
   &:hover {
     color: color.$gray-600;
@@ -210,7 +211,6 @@
 
 .error.empty {
   color: color.$error-700;
-  box-shadow: none;
 
   &:hover {
     background: color.$error-50;

@@ -1,7 +1,7 @@
 import {
   Alert,
   AlertButton,
-  AlertIcon,
+  ButtonIcon,
   AlertMessage,
   LoadingIndicator,
 } from "@features/ui";
@@ -20,13 +20,13 @@ export function ProjectList() {
     console.error(error);
     return (
       <Alert data-testid="projects-error-message">
-        <AlertIcon src="/icons/alert-circle.svg" />
+        <ButtonIcon src="/icons/alert-circle.svg" />
         <AlertMessage>
           There was a problem while loading the project data
         </AlertMessage>
         <AlertButton onClick={() => refetch()}>
           Try again
-          <AlertIcon src="/icons/arrow-right.svg" />
+          <ButtonIcon src="/icons/arrow-right.svg" />
         </AlertButton>
       </Alert>
     );
