@@ -14,14 +14,15 @@
   border: 1px solid color.$error-300;
   background: color.$error-25;
   color: color.$error-700;
+  font: font.$text-sm-medium;
 }
 
-.button {
-  display: flex;
-  align-items: center;
-  gap: space.$s2;
-  color: inherit;
-}
+// .button {
+//   display: flex;
+//   align-items: center;
+//   gap: space.$s2;
+//   color: inherit;
+// }
 
 .message {
   flex: 1;
