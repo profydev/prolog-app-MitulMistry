@@ -20,6 +20,7 @@ export enum ButtonColor {
 export enum ButtonVariant {
   Default = "default",
   Empty = "empty",
+  IconOnly = "iconOnly",
 }
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {

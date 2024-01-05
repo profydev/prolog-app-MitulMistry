@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Button, ButtonSize, ButtonColor, ButtonVariant } from "./button";
+import { ButtonIcon } from "./button-icon";
 
 // Storybook CSF3 format
 
@@ -91,5 +92,48 @@ export const ErrorEmpty: Story = {
     ...Default.args,
     color: ButtonColor.Error,
     variant: ButtonVariant.Empty,
+  },
+};
+
+export const IconLeading: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    children: (
+      <>
+        <ButtonIcon src="/icons/message.svg" />
+        Button CTA
+      </>
+    ),
+  },
+};
+
+// Alternative render function:
+// render: (args) => (
+//   <Button {...args}>
+//     <ButtonIcon src="/icons/message.svg" />
+//     Button CTA
+//   </Button>
+// ),
+
+export const IconTrailing: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    children: (
+      <>
+        Button CTA
+        <ButtonIcon src="/icons/message.svg" />
+      </>
+    ),
+  },
+};
+
+export const IconOnly: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    children: <ButtonIcon src="/icons/message.svg" />,
+    variant: ButtonVariant.IconOnly,
   },
 };

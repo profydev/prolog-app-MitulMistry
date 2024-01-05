@@ -13,31 +13,52 @@
   font: font.$text-sm-medium;
 }
 
+.icon {
+  height: 100%;
+}
+
 .sm {
   height: 2.25rem;
-  padding: 0 0.875rem;
+  padding: 0.5rem 0.875rem;
   font: font.$text-sm-medium;
+
+  &.iconOnly {
+    padding: 0.5rem;
+  }
 }
 
 .md {
   height: 2.5rem;
-  padding: 0 1rem;
+  padding: 0.625rem 1rem;
   font: font.$text-sm-medium;
+
+  &.iconOnly {
+    padding: 0.625rem;
+  }
 }
 
 .lg {
   height: 2.75rem;
-  padding: 0 1.125rem;
+  padding: 0.625rem 1.125rem;
   font: font.$text-md-medium;
+
+  &.iconOnly {
+    padding: 0.625rem;
+  }
 }
 
 .xl {
   height: 3rem;
-  padding: 0 1.25rem;
+  padding: 0.75rem 1.25rem;
   font: font.$text-md-medium;
+
+  &.iconOnly {
+    padding: 0.75rem;
+  }
 }
 
-.primary.default {
+.primary.default,
+.primary.iconOnly {
   border: 1px solid color.$primary-600;
   background: color.$primary-600;
   color: color.$white;
@@ -63,7 +84,8 @@
   }
 }
 
-.secondary.default {
+.secondary.default,
+.secondary.iconOnly {
   border: 1px solid color.$primary-50;
   background: color.$primary-50;
   color: color.$primary-700;
@@ -90,7 +112,8 @@
   }
 }
 
-.gray.default {
+.gray.default,
+.gray.iconOnly {
   border: 1px solid color.$gray-300;
   background: color.$white;
   color: color.$gray-700;
@@ -117,7 +140,8 @@
   }
 }
 
-.error.default {
+.error.default,
+.error.iconOnly {
   border: 1px solid color.$error-600;
   background: color.$error-600;
   color: color.$white;
