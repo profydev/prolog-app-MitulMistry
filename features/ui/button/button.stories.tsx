@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Button, ButtonSize, ButtonColor, ButtonVariant } from "./button";
-import { ButtonIcon } from "./button-icon";
+import { Button, ButtonIcon, ButtonSize, ButtonColor, ButtonVariant } from ".";
 
 // Storybook CSF3 format
 
