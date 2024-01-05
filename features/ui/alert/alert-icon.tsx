@@ -5,8 +5,6 @@ export type AlertIconProps = {
 };
 
 export function AlertIcon({ src }: AlertIconProps) {
-  {
-    /* eslint-disable-next-line @next/next/no-img-element */
-  }
+  /* eslint-disable-next-line @next/next/no-img-element */
   return <img src={src} alt="" />;
 }
