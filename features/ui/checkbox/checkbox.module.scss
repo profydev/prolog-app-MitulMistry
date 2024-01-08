@@ -1,0 +1,43 @@
+@use "@styles/color";
+@use "@styles/font";
+@use "@styles/shadow";
+@use "@styles/space";
+
+.checkbox {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // gap: space.$s2;
+  // border-radius: space.$s2;
+  font: font.$text-md-medium;
+}
+
+.sm {
+  height: 1rem;
+
+  // padding: 0.5rem 0.875rem;
+  font: font.$text-sm-medium;
+}
+
+.md {
+  height: 1.25rem;
+
+  // padding: 0.625rem 1rem;
+  font: font.$text-md-medium;
+}
+
+// .unchecked {
+
+// }
+
+// .checked {
+
+// }
+
+// .partlyChecked {
+
+// }
+
+// .label {
+
+// }
