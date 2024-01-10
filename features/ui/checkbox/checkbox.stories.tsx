@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
 // import { Checkbox, CheckboxSizeClass, CheckboxState } from "./checkbox";
-import { Checkbox } from ".";
+import { Checkbox, CheckboxSize } from ".";
 
 // Storybook CSF3 format
 
@@ -14,7 +14,12 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
-  args: { children: "Label", checked: false, indeterminate: false },
+  args: {
+    children: "Label",
+    checked: false,
+    indeterminate: false,
+    size: CheckboxSize.Medium,
+  },
   render: function Render(args) {
     const [{ checked }, updateArgs] = useArgs();
     return (

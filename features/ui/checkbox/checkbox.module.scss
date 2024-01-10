@@ -3,10 +3,30 @@
 @use "@styles/shadow";
 @use "@styles/space";
 
-.check,
-.indeterminateCheck {
-  width: 0.75rem;
-  height: 0.75rem;
+.sm {
+  // width: space.$s4;
+  // height: space.$s4;
+  gap: space.$s2;
+  font: font.$text-sm-medium;
+
+  .check,
+  .indeterminateCheck {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}
+
+.md {
+  // width: space.$s5;
+  // height: space.$s5;
+  gap: space.$s3;
+  font: font.$text-md-medium;
+
+  .check,
+  .indeterminateCheck {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
 }
 
 .checkbox {
@@ -33,9 +53,7 @@
 .container {
   display: flex;
   align-items: center;
-  gap: space.$s2;
   cursor: pointer;
-  font: font.$text-md-medium;
   color: color.$gray-700;
 
   & input {
@@ -53,33 +71,3 @@
     background: color.$primary-50;
   }
 }
-
-// .sm {
-//   height: 1rem;
-
-//   // padding: 0.5rem 0.875rem;
-//   font: font.$text-sm-medium;
-// }
-
-// .md {
-//   height: 1.25rem;
-
-//   // padding: 0.625rem 1rem;
-//   font: font.$text-md-medium;
-// }
-
-// .unchecked {
-
-// }
-
-// .checked {
-
-// }
-
-// .partlyChecked {
-
-// }
-
-// .label {
-
-// }

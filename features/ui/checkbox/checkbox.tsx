@@ -2,13 +2,30 @@ import { forwardRef, useEffect, useRef, useImperativeHandle } from "react";
 import classNames from "classnames";
 import styles from "./checkbox.module.scss";
 
-type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export enum CheckboxSize {
+  Small = "sm",
+  Medium = "md",
+}
+
+type CheckboxProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "size"
+> & {
   indeterminate?: boolean;
+  size?: CheckboxSize;
 };
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   function Checkbox(
-    { children, className, style, checked, indeterminate, ...otherProps },
+    {
+      children,
+      className,
+      style,
+      size = CheckboxSize.Medium,
+      checked,
+      indeterminate,
+      ...otherProps
+    },
     ref,
   ) {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -26,7 +43,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     }, [indeterminate]);
 
     return (
-      <label className={classNames(styles.container, className)} style={style}>
+      <label
+        className={classNames(styles.container, styles[size], className)}
+        style={style}
+      >
         <input
           {...otherProps}
           type="checkbox"
@@ -77,11 +97,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 // import React from "react";
 // import classNames from "classnames";
 // import styles from "./checkbox.module.scss";
-
-// export enum CheckboxSizeClass {
-//   Small = "sm",
-//   Medium = "md",
-// }
 
 // export enum CheckboxState {
 //   Unchecked = "unchecked",
