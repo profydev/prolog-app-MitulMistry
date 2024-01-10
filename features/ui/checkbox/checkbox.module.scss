@@ -75,4 +75,15 @@
     border-color: color.$primary-600;
     background: color.$primary-50;
   }
+
+  & input:disabled ~ .checkbox {
+    border-color: color.$gray-300;
+    background: color.$gray-100;
+    color: color.$gray-400;
+  }
+
+  & input:disabled ~ * {
+    color: color.$gray-300;
+    cursor: not-allowed;
+  }
 }

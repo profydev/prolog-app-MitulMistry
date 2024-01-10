@@ -19,6 +19,7 @@ export const Default: Story = {
     checked: false,
     indeterminate: false,
     size: CheckboxSize.Medium,
+    disabled: false,
   },
   render: function Render(args) {
     const [{ checked }, updateArgs] = useArgs();
