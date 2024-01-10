@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
-  args: { children: "Label", checked: false },
+  args: { children: "Label", checked: false, indeterminate: false },
   render: function Render(args) {
     const [{ checked }, updateArgs] = useArgs();
     return (
@@ -25,13 +25,10 @@ export const Default: Story = {
       />
     );
   },
-  // args: { disabled: false },
-  // argTypes: {
-  //   color: {
-  //     control: "select",
-  //     options: Object.values(ButtonColor),
-  //   },
-  // },
+};
+
+export const Uncontrolled: Story = {
+  args: { children: "Label", indeterminate: false },
 };
 
 // export const Small: Story = {

@@ -3,7 +3,8 @@
 @use "@styles/shadow";
 @use "@styles/space";
 
-.check {
+.check,
+.indeterminateCheck {
   width: 0.75rem;
   height: 0.75rem;
 }
@@ -19,8 +20,13 @@
   background: color.$white;
   color: color.$primary-600;
 
-  & .check {
+  & .check,
+  & .indeterminateCheck {
     display: none;
+  }
+
+  &.indeterminate .indeterminateCheck {
+    display: block;
   }
 }
 
@@ -37,11 +43,12 @@
     position: absolute;
   }
 
-  & input:checked ~ .checkbox .check {
+  & input:checked ~ .checkbox:not(.indeterminate) .check {
     display: block;
   }
 
-  & input:checked ~ .checkbox {
+  & input:checked ~ .checkbox,
+  & .checkbox.indeterminate {
     border-color: color.$primary-600;
     background: color.$primary-50;
   }
