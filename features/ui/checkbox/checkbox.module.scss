@@ -65,6 +65,7 @@
     display: block;
   }
 
+  &:hover .checkbox,
   & input:checked ~ .checkbox,
   & .checkbox.indeterminate {
     border-color: color.$primary-600;
