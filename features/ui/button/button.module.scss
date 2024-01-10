@@ -72,9 +72,7 @@
     border: 1px solid color.$primary-600;
     background: color.$primary-600;
     outline: 4px solid color.$primary-100;
-    box-shadow:
-      0 0 0 4px #f4ebff,
-      0 1px 2px 0 rgb(16 24 40 / 5%);
+    box-shadow: shadow.$focus-primary, shadow.$xs;
   }
 
   &:disabled {
@@ -86,23 +84,21 @@
 
 .secondary.default,
 .secondary.iconOnly {
+  color: color.$primary-700;
   border: 1px solid color.$primary-50;
   background: color.$primary-50;
-  color: color.$primary-700;
   box-shadow: shadow.$xs;
 
   &:hover {
-    border: 1px solid color.$primary-100;
+    border-color: color.$primary-100;
     background: color.$primary-100;
   }
 
   &:focus {
-    border: 1px solid color.$primary-50;
+    border-color: color.$primary-50;
     background: color.$primary-50;
-    outline: 4px solid color.$primary-50;
-    box-shadow:
-      0 0 0 4px #f4ebff,
-      0 1px 2px 0 rgb(16 24 40 / 5%);
+    outline: 4px solid color.$primary-100;
+    box-shadow: shadow.$focus-primary, shadow.$xs;
   }
 
   &:disabled {
@@ -115,23 +111,22 @@
 
 .gray.default,
 .gray.iconOnly {
+  color: color.$gray-700;
   border: 1px solid color.$gray-300;
   background: color.$white;
-  color: color.$gray-700;
   box-shadow: shadow.$xs;
 
   &:hover {
-    border: 1px solid color.$gray-300;
+    color: color.$gray-800;
+    border-color: color.$gray-300;
     background: color.$gray-50;
   }
 
   &:focus {
-    border: 1px solid color.$gray-300;
+    border-color: color.$gray-300;
     background: color.$white;
-    outline: 4px solid color.$gray-300;
-    box-shadow:
-      0 0 0 4px #f2f4f7,
-      0 1px 2px 0 rgb(16 24 40 / 5%);
+    outline: 4px solid color.$gray-100;
+    box-shadow: shadow.$focus-gray, shadow.$xs;
   }
 
   &:disabled {
@@ -144,23 +139,21 @@
 
 .error.default,
 .error.iconOnly {
+  color: color.$white;
   border: 1px solid color.$error-600;
   background: color.$error-600;
-  color: color.$white;
   box-shadow: shadow.$xs;
 
   &:hover {
-    border: 1px solid color.$error-700;
+    border-color: color.$error-700;
     background: color.$error-700;
   }
 
   &:focus {
-    border: 1px solid color.$error-600;
+    border-color: color.$error-600;
     background: color.$error-600;
-    outline: 4px solid color.$error-600;
-    box-shadow:
-      0 0 0 4px #fee4e2,
-      0 1px 2px 0 rgb(16 24 40 / 5%);
+    outline: 4px solid color.$error-100;
+    box-shadow: shadow.$focus-error, shadow.$xs;
   }
 
   &:disabled {
