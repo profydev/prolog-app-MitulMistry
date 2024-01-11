@@ -61,6 +61,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         >
           <svg
             className={styles.indeterminateCheck}
+            data-testid="indeterminate-check"
             viewBox="0 0 12 12"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -75,6 +76,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           </svg>
           <svg
             className={styles.check}
+            data-testid="check"
             viewBox="0 0 12 12"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
