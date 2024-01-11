@@ -10,7 +10,7 @@
     "lint:styles": "stylelint  --ignore-path .gitignore \"**/*.scss\"",
     "check:types": "tsc --noEmit",
     "prettier": "prettier  --ignore-path .gitignore --check .",
-    "cypress": "cypress open",
+    "cypress": "CYPRESS_REMOTE_DEBUGGING_PORT=9222 cypress open",
     "test": "jest --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",

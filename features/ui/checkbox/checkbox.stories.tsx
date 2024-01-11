@@ -36,28 +36,3 @@ export const Default: Story = {
 export const Uncontrolled: Story = {
   args: { children: "Label", indeterminate: false },
 };
-
-// export const Small: Story = {
-//   ...Default,
-//   args: { ...Default.args, sizeClass: CheckboxSizeClass.Small },
-// };
-
-// export const Medium: Story = {
-//   ...Default,
-//   args: { ...Default.args, sizeClass: CheckboxSizeClass.Medium },
-// };
-
-// export const Checked: Story = {
-//   ...Default,
-//   args: { ...Default.args, state: CheckboxState.Checked },
-// };
-
-// export const Unchecked: Story = {
-//   ...Default,
-//   args: { ...Default.args, state: CheckboxState.Unchecked },
-// };
-
-// export const PartlyChecked: Story = {
-//   ...Default,
-//   args: { ...Default.args, state: CheckboxState.PartlyChecked },
-// };
