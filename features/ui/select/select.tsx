@@ -32,7 +32,7 @@ export function Select({
       {...props}
     >
       {label && <Label className={styles.label}>{label}</Label>}
-      <Button>
+      <Button className={styles.select}>
         <SelectValue />
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +40,7 @@ export function Select({
           height="20"
           viewBox="0 0 20 20"
           fill="none"
+          className={styles.arrow}
         >
           <path
             d="M5 7.5L10 12.5L15 7.5"
@@ -51,11 +52,11 @@ export function Select({
         </svg>
       </Button>
       <Popover>
-        <ListBox>
+        <ListBox className={styles.listbox}>
           {children}
-          <ListBoxItem>Item 1</ListBoxItem>
-          <ListBoxItem>Item 2</ListBoxItem>
-          <ListBoxItem>Item 3</ListBoxItem>
+          <ListBoxItem className={styles.listboxItem}>Item 1</ListBoxItem>
+          <ListBoxItem className={styles.listboxItem}>Item 2</ListBoxItem>
+          <ListBoxItem className={styles.listboxItem}>Item 3</ListBoxItem>
         </ListBox>
       </Popover>
     </AriaSelect>
