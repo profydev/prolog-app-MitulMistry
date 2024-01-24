@@ -13,13 +13,12 @@ type Story = StoryObj<typeof Select>;
 
 export const Default: Story = {
   args: {
-    // children: (
-    //   <>
-    //     <option>Option 1</option>
-    //     <option>Option 2</option>
-    //     <option>Option 3</option>
-    //   </>
-    // ),
+    children: <>Label</>,
+    options: [
+      { label: "Item 1", value: 1 },
+      { label: "Item 2", value: 2 },
+      { label: "Item 3", value: 3 },
+    ],
     disabled: false,
   },
 };
