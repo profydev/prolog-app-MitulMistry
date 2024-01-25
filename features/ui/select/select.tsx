@@ -76,9 +76,9 @@ export function Select({
           <path
             d="M5 7.5L10 12.5L15 7.5"
             stroke="currentColor"
-            stroke-width="1.66667"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.66667"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
       </Button>
@@ -114,9 +114,9 @@ export function Select({
                       <path
                         d="M16.6668 5L7.50016 14.1667L3.3335 10"
                         stroke="currentColor"
-                        stroke-width="1.66667"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.66667"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   )}
