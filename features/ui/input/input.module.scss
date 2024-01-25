@@ -1,0 +1,14 @@
+@use "@styles/color";
+@use "@styles/font";
+@use "@styles/space";
+@use "@styles/shadow";
+
+.label {
+  color: color.$gray-700;
+  font: font.$text-sm-medium;
+}
+
+.input {
+  color: color.$gray-900;
+  font: font.$text-md-regular;
+}
