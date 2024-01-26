@@ -2,21 +2,27 @@ import React from "react";
 import classNames from "classnames";
 import styles from "./input.module.scss";
 
-type InputProps = {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   children: React.ReactNode;
-  disabled: boolean;
-  className: string;
+  className?: string;
+  hint?: string;
+  errorMessage?: string;
 };
 
-export function Input({ children, disabled, className, ...props }: InputProps) {
+export function Input({
+  children,
+  className,
+  hint,
+  errorMessage,
+  ...props
+}: InputProps) {
   return (
-    <label className={styles.label}>
-      {children}
-      <input
-        className={classNames(styles.input, className)}
-        disabled={disabled}
-        {...props}
-      />
-    </label>
+    <div className={styles.input}>
+      <label className={styles.label}>
+        {children}
+        <input className={classNames(styles.inputBox, className)} {...props} />
+      </label>
+      {hint && !errorMessage && <span className={styles.hint}>{hint}</span>}
+    </div>
   );
 }

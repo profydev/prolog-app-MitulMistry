@@ -3,12 +3,51 @@
 @use "@styles/space";
 @use "@styles/shadow";
 
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
 .label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
   color: color.$gray-700;
   font: font.$text-sm-medium;
 }
 
-.input {
+.inputBox {
+  // height: 2.75rem;
+  display: flex;
+  padding: 0.625rem 0.875rem;
+  align-items: center;
+  gap: 0.5rem;
   color: color.$gray-900;
   font: font.$text-md-regular;
+  border-radius: 0.5rem;
+  border: 1px solid color.$gray-300;
+  background: color.$white;
+  box-shadow: shadow.$xs;
+
+  &::placeholder {
+    color: color.$gray-500;
+  }
+
+  &:disabled {
+    color: color.$gray-500;
+    border: 1px solid color.$gray-300;
+    background: color.$gray-50;
+  }
+
+  &:focus-visible:not(:disabled) {
+    border-color: color.$primary-300;
+    box-shadow: shadow.$focus-primary;
+    outline: none;
+  }
+}
+
+.hint {
+  font: font.$text-sm-medium;
+  color: color.$gray-500;
 }

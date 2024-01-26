@@ -23,3 +23,17 @@ export const Label: Story = {
     children: "Label",
   },
 };
+
+export const Hint: Story = {
+  args: {
+    ...Label.args,
+    hint: "This is a hint",
+  },
+};
+
+export const Placeholder: Story = {
+  args: {
+    ...Hint.args,
+    placeholder: "This is a placeholder",
+  },
+};
