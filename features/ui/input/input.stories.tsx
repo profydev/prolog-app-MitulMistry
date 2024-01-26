@@ -18,6 +18,7 @@ export const Default: Story = {
 };
 
 export const Label: Story = {
+  ...Default,
   args: {
     ...Default.args,
     children: "Label",
@@ -25,6 +26,7 @@ export const Label: Story = {
 };
 
 export const Hint: Story = {
+  ...Default,
   args: {
     ...Label.args,
     hint: "This is a hint",
@@ -32,8 +34,17 @@ export const Hint: Story = {
 };
 
 export const Placeholder: Story = {
+  ...Default,
   args: {
     ...Hint.args,
     placeholder: "This is a placeholder",
+  },
+};
+
+export const Error: Story = {
+  ...Default,
+  args: {
+    ...Placeholder.args,
+    errorMessage: "This is an error message.",
   },
 };

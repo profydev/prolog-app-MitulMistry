@@ -17,6 +17,11 @@
   font: font.$text-sm-medium;
 }
 
+.errorMessage {
+  font: font.$text-sm-regular;
+  color: color.$error-500;
+}
+
 .inputBox {
   // height: 2.75rem;
   display: flex;
@@ -44,6 +49,16 @@
     border-color: color.$primary-300;
     box-shadow: shadow.$focus-primary;
     outline: none;
+  }
+
+  &.error {
+    border-color: color.$error-300;
+  }
+
+  &.error:not(:disabled),
+  &.error:focus-visible {
+    border-color: color.$error-300;
+    box-shadow: shadow.$focus-error;
   }
 }
 

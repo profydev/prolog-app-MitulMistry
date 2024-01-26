@@ -17,12 +17,18 @@ export function Input({
   ...props
 }: InputProps) {
   return (
-    <div className={styles.input}>
+    <div className={classNames(styles.input, className)}>
       <label className={styles.label}>
         {children}
-        <input className={classNames(styles.inputBox, className)} {...props} />
+        <input
+          className={classNames(styles.inputBox, errorMessage && styles.error)}
+          {...props}
+        />
       </label>
       {hint && !errorMessage && <span className={styles.hint}>{hint}</span>}
+      {errorMessage && (
+        <span className={styles.errorMessage}>{errorMessage}</span>
+      )}
     </div>
   );
 }
