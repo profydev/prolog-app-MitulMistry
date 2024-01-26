@@ -22,6 +22,18 @@
   color: color.$error-500;
 }
 
+.icon {
+  position: absolute;
+  margin-top: 2.5rem;
+  margin-left: 1rem;
+}
+
+.errorIcon {
+  position: absolute;
+  margin-top: 2.5rem;
+  margin-left: 30rem;
+}
+
 .inputBox {
   // height: 2.75rem;
   display: flex;
@@ -34,6 +46,10 @@
   border: 1px solid color.$gray-300;
   background: color.$white;
   box-shadow: shadow.$xs;
+
+  &.iconOffset {
+    padding-left: 3rem;
+  }
 
   &::placeholder {
     color: color.$gray-500;
