@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import classNames from "classnames";
 import styles from "./input.module.scss";
 
@@ -10,14 +10,10 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   icon?: React.ReactNode;
 };
 
-export function Input({
-  children,
-  className,
-  hint,
-  errorMessage,
-  icon,
-  ...props
-}: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { children, className, hint, errorMessage, icon, ...props },
+  ref,
+) {
   return (
     <div className={classNames(styles.input, className)}>
       <label className={styles.label}>
@@ -28,12 +24,13 @@ export function Input({
           </span>
         )}
         <input
+          {...props}
           className={classNames(
             styles.inputBox,
             icon && styles.iconOffset,
             errorMessage && styles.error,
           )}
-          {...props}
+          ref={ref}
         />
         {errorMessage && (
           <span className={styles.errorIcon} aria-hidden>
@@ -73,4 +70,4 @@ export function Input({
       )}
     </div>
   );
-}
+});

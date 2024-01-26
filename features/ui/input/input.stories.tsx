@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { useArgs } from "@storybook/preview-api";
 import { Input } from ".";
 
 // Storybook CSF3 format
@@ -15,6 +16,21 @@ export const Default: Story = {
   args: {
     disabled: false,
   },
+  render: function Render(args) {
+    const [{ value }, updateArgs] = useArgs();
+    return (
+      <Input
+        {...args}
+        value={value}
+        onChange={(e) => updateArgs({ value: e.target.value })}
+        ref={(ref) => console.log(ref)}
+      />
+    );
+  },
+};
+
+export const Uncontrolled: Story = {
+  args: { children: "Label" },
 };
 
 export const Label: Story = {
