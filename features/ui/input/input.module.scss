@@ -16,7 +16,7 @@
   display: flex;
   padding: 0.625rem 0.875rem;
   align-items: center;
-  gap: 0.5rem;
+  gap: space.$s2;
   border-radius: 0.5rem;
   border: 1px solid color.$gray-300;
   background: color.$white;
@@ -34,6 +34,15 @@
     background: color.$gray-50;
     cursor: not-allowed;
   }
+
+  &.error {
+    border-color: color.$error-300;
+  }
+
+  &:focus-within.error {
+    border-color: color.$error-300;
+    box-shadow: shadow.$focus-error, shadow.$xs;
+  }
 }
 
 .icon {
@@ -41,9 +50,8 @@
 }
 
 .errorIcon {
-  position: absolute;
-  margin-top: 2.5rem;
-  margin-left: 30rem;
+  // Relies on "currentColor" property in SVG element in Input component file
+  color: color.$error-500;
 }
 
 .errorMessage {
@@ -53,6 +61,7 @@
 
 .input {
   all: unset; // CSS reset
+  flex: 1; // Causes input element to expand
   color: color.$gray-900;
   font: font.$text-md-regular;
   outline: none;
@@ -60,19 +69,9 @@
   &::placeholder {
     color: color.$gray-500;
   }
-
-  &.error {
-    border-color: color.$error-300;
-  }
-
-  &.error:not(:disabled),
-  &.error:focus-visible {
-    border-color: color.$error-300;
-    box-shadow: shadow.$focus-error;
-  }
 }
 
 .hint {
-  font: font.$text-sm-medium;
+  font: font.$text-sm-regular;
   color: color.$gray-500;
 }

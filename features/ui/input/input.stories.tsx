@@ -36,14 +36,6 @@ export const Controlled: Story = {
   },
 };
 
-export const Hint: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    hint: "This is a hint",
-  },
-};
-
 export const Icon: Story = {
   ...Default,
   args: {
@@ -68,10 +60,26 @@ export const Icon: Story = {
   },
 };
 
-export const Error: Story = {
+export const Label: Story = {
   ...Default,
   args: {
-    ...Icon.args,
+    ...Default.args,
+    children: "Email",
+  },
+};
+
+export const Hint: Story = {
+  ...Label,
+  args: {
+    ...Label.args,
+    hint: "This is a hint text to help user.",
+  },
+};
+
+export const Error: Story = {
+  ...Hint,
+  args: {
+    ...Hint.args,
     errorMessage: "This is an error message.",
   },
 };

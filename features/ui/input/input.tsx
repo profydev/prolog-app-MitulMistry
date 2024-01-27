@@ -17,17 +17,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   return (
     <label className={styles.label}>
       {children}
-      <span className={styles.inputContainer}>
+      <span
+        className={classNames(
+          styles.inputContainer,
+          errorMessage && styles.error,
+        )}
+      >
         {icon && (
           <span className={classNames(styles.label, className)} aria-hidden>
             {icon}
           </span>
         )}
-        <input
-          {...props}
-          className={classNames(styles.input, errorMessage && styles.error)}
-          ref={ref}
-        />
+        <input {...props} className={classNames(styles.input)} ref={ref} />
         {errorMessage && (
           <span className={styles.errorIcon} aria-hidden>
             <svg
@@ -40,7 +41,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
               <g clip-path="url(#clip0_17171_1729)">
                 <path
                   d="M8.00016 5.45966V8.12632M8.00016 10.793H8.00683M14.6668 8.12632C14.6668 11.8082 11.6821 14.793 8.00016 14.793C4.31826 14.793 1.3335 11.8082 1.3335 8.12632C1.3335 4.44442 4.31826 1.45966 8.00016 1.45966C11.6821 1.45966 14.6668 4.44442 14.6668 8.12632Z"
-                  stroke="#F04438"
+                  stroke="currentColor"
                   strokeWidth="1.33333"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -59,11 +60,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             </svg>
           </span>
         )}
-        {hint && !errorMessage && <span className={styles.hint}>{hint}</span>}
-        {errorMessage && (
-          <span className={styles.errorMessage}>{errorMessage}</span>
-        )}
       </span>
+      {hint && !errorMessage && <span className={styles.hint}>{hint}</span>}
+      {errorMessage && (
+        <span className={styles.errorMessage}>{errorMessage}</span>
+      )}
     </label>
   );
 });
