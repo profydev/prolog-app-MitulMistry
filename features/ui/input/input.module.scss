@@ -1,0 +1,77 @@
+@use "@styles/color";
+@use "@styles/font";
+@use "@styles/space";
+@use "@styles/shadow";
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  color: color.$gray-700;
+  font: font.$text-sm-medium;
+}
+
+.inputContainer {
+  height: 2.75rem;
+  display: flex;
+  padding: 0.625rem 0.875rem;
+  align-items: center;
+  gap: space.$s2;
+  border-radius: 0.5rem;
+  border: 1px solid color.$gray-300;
+  background: color.$white;
+  box-shadow: shadow.$xs;
+  box-sizing: border-box;
+
+  &:focus-within {
+    border-color: color.$primary-300;
+    box-shadow: shadow.$focus-primary, shadow.$xs;
+  }
+
+  &:has(.input:disabled) {
+    color: color.$gray-500;
+    border-color: color.$gray-300;
+    background: color.$gray-50;
+    cursor: not-allowed;
+  }
+
+  &.error {
+    border-color: color.$error-300;
+  }
+
+  &:focus-within.error {
+    border-color: color.$error-300;
+    box-shadow: shadow.$focus-error, shadow.$xs;
+  }
+}
+
+.icon {
+  display: flex;
+}
+
+.errorIcon {
+  // Relies on "currentColor" property in SVG element in Input component file
+  color: color.$error-500;
+}
+
+.errorMessage {
+  font: font.$text-sm-regular;
+  color: color.$error-500;
+}
+
+.input {
+  all: unset; // CSS reset
+  flex: 1; // Causes input element to expand
+  color: color.$gray-900;
+  font: font.$text-md-regular;
+  outline: none;
+
+  &::placeholder {
+    color: color.$gray-500;
+  }
+}
+
+.hint {
+  font: font.$text-sm-regular;
+  color: color.$gray-500;
+}
