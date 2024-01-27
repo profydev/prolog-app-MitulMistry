@@ -12,10 +12,17 @@ export default meta;
 
 type Story = StoryObj<typeof Input>;
 
+// Default is uncontrolled component
 export const Default: Story = {
   args: {
+    children: "Label",
+    placeholder: "olivia@untitledui.com",
     disabled: false,
   },
+};
+
+export const Controlled: Story = {
+  ...Default,
   render: function Render(args) {
     const [{ value }, updateArgs] = useArgs();
     return (
@@ -29,38 +36,18 @@ export const Default: Story = {
   },
 };
 
-export const Uncontrolled: Story = {
-  args: { children: "Label" },
-};
-
-export const Label: Story = {
-  ...Default,
-  args: {
-    ...Default.args,
-    children: "Label",
-  },
-};
-
 export const Hint: Story = {
   ...Default,
   args: {
-    ...Label.args,
+    ...Default.args,
     hint: "This is a hint",
-  },
-};
-
-export const Placeholder: Story = {
-  ...Default,
-  args: {
-    ...Hint.args,
-    placeholder: "This is a placeholder",
   },
 };
 
 export const Icon: Story = {
   ...Default,
   args: {
-    ...Placeholder.args,
+    ...Default.args,
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

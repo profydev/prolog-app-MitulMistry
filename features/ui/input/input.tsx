@@ -15,21 +15,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref,
 ) {
   return (
-    <div className={classNames(styles.input, className)}>
-      <label className={styles.label}>
-        {children}
+    <label className={styles.label}>
+      {children}
+      <span className={styles.inputContainer}>
         {icon && (
-          <span className={styles.icon} aria-hidden>
+          <span className={classNames(styles.label, className)} aria-hidden>
             {icon}
           </span>
         )}
         <input
           {...props}
-          className={classNames(
-            styles.inputBox,
-            icon && styles.iconOffset,
-            errorMessage && styles.error,
-          )}
+          className={classNames(styles.input, errorMessage && styles.error)}
           ref={ref}
         />
         {errorMessage && (
@@ -63,11 +59,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
             </svg>
           </span>
         )}
-      </label>
-      {hint && !errorMessage && <span className={styles.hint}>{hint}</span>}
-      {errorMessage && (
-        <span className={styles.errorMessage}>{errorMessage}</span>
-      )}
-    </div>
+        {hint && !errorMessage && <span className={styles.hint}>{hint}</span>}
+        {errorMessage && (
+          <span className={styles.errorMessage}>{errorMessage}</span>
+        )}
+      </span>
+    </label>
   );
 });
