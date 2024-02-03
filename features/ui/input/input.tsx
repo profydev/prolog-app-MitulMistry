@@ -3,7 +3,7 @@ import classNames from "classnames";
 import styles from "./input.module.scss";
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   hint?: string;
   errorMessage?: string;

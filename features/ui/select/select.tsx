@@ -21,8 +21,8 @@ type SelectOption = {
 // React-Aria Select component is not native HTML Select element,
 // so doesn't make sense to extend it.
 type SelectProps = {
-  children: React.ReactNode;
-  disabled: boolean;
+  children?: React.ReactNode;
+  disabled?: boolean;
   options: SelectOption[];
   selectedValue: Key;
   icon?: React.ReactNode;
