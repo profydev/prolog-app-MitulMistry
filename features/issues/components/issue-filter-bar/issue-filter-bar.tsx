@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styles from "./issue-filter-bar.module.scss";
 import { Input, Select } from "@features/ui";
 import { Key } from "react-aria-components";
@@ -17,10 +17,16 @@ export function IssueFilterBar() {
 
   const [resolvedKey, setResolvedKey] = useState("unresolved");
   const [levelKey, setLevelKey] = useState("any");
+  const [searchStr, setSearchStr] = useState("");
 
   // Use Select as controlled components using selectedValue
   const resolvedOnChange = (key: Key) => setResolvedKey(String(key));
   const levelOnChange = (key: Key) => setLevelKey(String(key));
+
+  const searchStrOnChange = (event: ChangeEvent) => {
+    const val = (event.target as HTMLInputElement).value;
+    setSearchStr(val);
+  };
 
   const searchIcon = (
     <svg
@@ -57,6 +63,8 @@ export function IssueFilterBar() {
         />
         <Input
           placeholder="Project Name"
+          value={searchStr}
+          onChange={searchStrOnChange}
           className={styles.input}
           icon={searchIcon}
         />
