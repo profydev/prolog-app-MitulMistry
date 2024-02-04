@@ -15,13 +15,18 @@ import styles from "./issue-list.module.scss";
 export function IssueList() {
   const router = useRouter();
   const page = Number(router.query.page || 1);
+  const level = String(router.query.level);
+  const status = String(router.query.status);
+
+  console.log(page + ", " + level + ", " + status);
+
   const navigateToPage = (newPage: number) =>
     router.push({
       pathname: router.pathname,
-      query: { page: newPage },
+      query: { ...router.query, page: newPage },
     });
 
-  const issuesPage = useGetIssues(page);
+  const issuesPage = useGetIssues(page, status, level);
   const projects = useGetProjects();
 
   if (projects.isLoading || issuesPage.isLoading) {

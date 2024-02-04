@@ -3,10 +3,12 @@ import { useRouter } from "next/router";
 import styles from "./issue-filter-bar.module.scss";
 import { Input, Select } from "@features/ui";
 import { Key } from "react-aria-components";
+import classNames from "classnames";
 
 export function IssueFilterBar() {
   const resolvedOptions = [
-    { label: "Unresolved", value: "unresolved" },
+    { label: "All", value: "all" },
+    { label: "Unresolved", value: "open" },
     { label: "Resolved", value: "resolved" },
   ];
   const levelOptions = [
@@ -16,26 +18,28 @@ export function IssueFilterBar() {
     { label: "Info", value: "info" },
   ];
 
-  const [resolvedKey, setResolvedKey] = useState("unresolved");
+  const [statusKey, setStatusKey] = useState("all");
   const [levelKey, setLevelKey] = useState("any");
   const [searchStr, setSearchStr] = useState("");
 
-  // Modify URL parameters (for API query) on state change
   const router = useRouter();
+
+  // Modify URL parameters (for API query) on state change
   useEffect(() => {
     router.push({
       pathname: router.pathname,
       query: {
         ...router.query,
-        resolved: resolvedKey,
+        page: 1,
+        status: statusKey,
         level: levelKey,
         search: searchStr,
       },
     });
-  }, [resolvedKey, levelKey, searchStr, router]);
+  }, [statusKey, levelKey, searchStr]);
 
   // Use Select as controlled components using selectedValue
-  const resolvedOnChange = (key: Key) => setResolvedKey(String(key));
+  const statusOnChange = (key: Key) => setStatusKey(String(key));
   const levelOnChange = (key: Key) => setLevelKey(String(key));
 
   const searchStrOnChange = (event: ChangeEvent) => {
@@ -66,15 +70,15 @@ export function IssueFilterBar() {
       <div className={styles.rightGroup}>
         <Select
           options={resolvedOptions}
-          selectedValue={resolvedKey}
-          onChange={resolvedOnChange}
-          className={styles.input}
+          selectedValue={statusKey}
+          onChange={statusOnChange}
+          className={classNames(styles.input, styles.dropdown)}
         />
         <Select
           options={levelOptions}
           selectedValue={levelKey}
           onChange={levelOnChange}
-          className={styles.input}
+          className={classNames(styles.input, styles.dropdown)}
         />
         <Input
           placeholder="Project Name"
