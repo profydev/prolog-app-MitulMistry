@@ -5,8 +5,9 @@
 .filterBar {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
+  gap: space.$s4;
   align-self: stretch;
+  margin-bottom: space.$s6;
 }
 
 .input {
