@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import styles from "./issue-filter-bar.module.scss";
 import { Input, Select } from "@features/ui";
 import { Key } from "react-aria-components";
@@ -18,6 +19,20 @@ export function IssueFilterBar() {
   const [resolvedKey, setResolvedKey] = useState("unresolved");
   const [levelKey, setLevelKey] = useState("any");
   const [searchStr, setSearchStr] = useState("");
+
+  // Modify URL parameters (for API query) on state change
+  const router = useRouter();
+  useEffect(() => {
+    router.push({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        resolved: resolvedKey,
+        level: levelKey,
+        search: searchStr,
+      },
+    });
+  }, [resolvedKey, levelKey, searchStr, router]);
 
   // Use Select as controlled components using selectedValue
   const resolvedOnChange = (key: Key) => setResolvedKey(String(key));
