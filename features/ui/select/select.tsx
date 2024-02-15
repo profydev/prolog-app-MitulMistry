@@ -13,30 +13,30 @@ import {
 import classNames from "classnames";
 import styles from "./select.module.scss";
 
-type SelectOption = {
+type SelectOption<OptionValue> = {
   label: string;
-  value: Key;
+  value: OptionValue;
 };
 
 // React-Aria Select component is not native HTML Select element,
 // so doesn't make sense to extend it.
-type SelectProps = {
+type SelectProps<OptionValue> = {
   children?: React.ReactNode;
-  options: SelectOption[];
+  options: SelectOption<OptionValue>[];
   disabled?: boolean;
-  selectedValue?: Key;
+  selectedValue?: OptionValue;
   placeholder?: string;
   icon?: React.ReactNode;
   hint?: string;
   errorMessage?: string;
-  onChange?: (value: Key) => void;
+  onChange?: (value?: OptionValue) => void;
   className?: string;
   style?: React.CSSProperties;
 };
 
 // Could use label as a separate prop, but here used with children prop
 // to maintain consistency with other components.
-export function Select({
+export function Select<OptionValue extends Key>({
   className,
   children,
   disabled,
@@ -47,13 +47,26 @@ export function Select({
   errorMessage,
   onChange,
   ...props
-}: SelectProps) {
+}: SelectProps<OptionValue>) {
+  const isValidOption = (value: Key): value is OptionValue => {
+    return options.some((option) => option.value === value);
+  };
+  let handleChange;
+  if (onChange) {
+    handleChange = (value: Key) => {
+      if (isValidOption(value)) {
+        onChange(value);
+      } else {
+        onChange(undefined);
+      }
+    };
+  }
   return (
     <AriaSelect
       {...props}
       className={classNames(styles.select, className)}
       selectedKey={selectedValue}
-      onSelectionChange={onChange}
+      onSelectionChange={handleChange}
     >
       {children && <Label className={styles.label}>{children}</Label>}
       <Button
