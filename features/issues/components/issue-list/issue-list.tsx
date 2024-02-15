@@ -11,23 +11,41 @@ import {
   LoadingIndicator,
 } from "@features/ui";
 import styles from "./issue-list.module.scss";
+import { IssueStatus, IssueLevel } from "@api/issues.types";
+import { NextRouter } from "next/router";
+import { z } from "zod";
+
+const QueryParamsSchema = z.object({
+  page: z
+    .string()
+    .optional()
+    .transform((str) => Number(str) || 1),
+  status: z.nativeEnum(IssueStatus).optional(),
+  level: z.nativeEnum(IssueLevel).optional(),
+  project: z.string().optional(),
+});
+
+function parseQueryParams(query: NextRouter["query"]) {
+  const parsed = QueryParamsSchema.safeParse(query);
+  if (!parsed.success) {
+    console.error(parsed.error);
+    return { page: 1 }; // If anything goes wrong, use default object
+  }
+  return parsed.data;
+}
 
 export function IssueList() {
   const router = useRouter();
-  const page = Number(router.query.page || 1);
-  const level = String(router.query.level);
-  const status = String(router.query.status);
-
-  console.log(page + ", " + level + ", " + status);
+  const queryParams = parseQueryParams(router.query);
+  // console.log(queryParams);
+  const issuesPage = useGetIssues(queryParams);
+  const projects = useGetProjects();
 
   const navigateToPage = (newPage: number) =>
     router.push({
       pathname: router.pathname,
-      query: { ...router.query, page: newPage },
+      query: { ...queryParams, page: newPage },
     });
-
-  const issuesPage = useGetIssues(page, status, level);
-  const projects = useGetProjects();
 
   if (projects.isLoading || issuesPage.isLoading) {
     return <LoadingIndicator />;
@@ -89,15 +107,15 @@ export function IssueList() {
         <div>
           <button
             className={styles.paginationButton}
-            onClick={() => navigateToPage(page - 1)}
-            disabled={page === 1}
+            onClick={() => navigateToPage(queryParams.page - 1)}
+            disabled={queryParams.page === 1}
           >
             Previous
           </button>
           <button
             className={styles.paginationButton}
-            onClick={() => navigateToPage(page + 1)}
-            disabled={page === meta?.totalPages}
+            onClick={() => navigateToPage(queryParams.page + 1)}
+            disabled={queryParams.page === meta?.totalPages}
           >
             Next
           </button>

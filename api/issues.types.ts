@@ -19,3 +19,10 @@ export type Issue = {
   numEvents: number;
   numUsers: number;
 };
+
+export type IssueListParams = {
+  page: number;
+  status?: IssueStatus;
+  level?: IssueLevel;
+  project?: string;
+};
