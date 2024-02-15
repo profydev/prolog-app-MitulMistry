@@ -10,8 +10,10 @@ import {
   Text,
   Key,
 } from "react-aria-components";
-import classNames from "classnames";
 import styles from "./select.module.scss";
+import classNames from "classnames";
+
+const RESET_VALUE = "SELECT_RESET_OPTION_VALUE" as const;
 
 type SelectOption<OptionValue> = {
   label: string;
@@ -23,8 +25,9 @@ type SelectOption<OptionValue> = {
 type SelectProps<OptionValue> = {
   children?: React.ReactNode;
   options: SelectOption<OptionValue>[];
+  resetOptionLabel?: string;
   disabled?: boolean;
-  selectedValue?: OptionValue;
+  selectedValue?: OptionValue | null;
   placeholder?: string;
   icon?: React.ReactNode;
   hint?: string;
@@ -41,7 +44,9 @@ export function Select<OptionValue extends Key>({
   children,
   disabled,
   options,
+  resetOptionLabel,
   selectedValue,
+  placeholder,
   icon,
   hint,
   errorMessage,
@@ -61,6 +66,15 @@ export function Select<OptionValue extends Key>({
       }
     };
   }
+
+  // Add reset option if resetOptionLabel is provided
+  const internalOptions = [
+    ...(resetOptionLabel
+      ? [{ label: resetOptionLabel, value: RESET_VALUE }]
+      : []),
+    ...options,
+  ];
+
   return (
     <AriaSelect
       {...props}
@@ -79,7 +93,13 @@ export function Select<OptionValue extends Key>({
             {icon}
           </span>
         )}
-        <SelectValue className={styles.value} />
+        <SelectValue className={styles.value}>
+          {(value) =>
+            value.selectedText === RESET_VALUE || value.isPlaceholder
+              ? placeholder
+              : value.selectedText
+          }
+        </SelectValue>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -107,13 +127,17 @@ export function Select<OptionValue extends Key>({
         <div className={styles.errorMessage}>{errorMessage}</div>
       )}
       <Popover className={styles.popover}>
-        <ListBox className={styles.optionList} items={options}>
+        <ListBox className={styles.optionList} items={internalOptions}>
           {(option) => (
             <ListBoxItem
               key={option.value}
               id={option.value}
               textValue={option.label}
-              className={classNames(styles.option, styles.selected)}
+              className={classNames(
+                styles.option,
+                styles.selected,
+                option.value === RESET_VALUE && styles.resetOption,
+              )}
             >
               {({ isSelected }) => (
                 <>

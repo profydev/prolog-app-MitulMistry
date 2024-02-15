@@ -110,18 +110,23 @@ export function IssueList() {
           className={styles.selectFilter}
           options={statusOptions}
           placeholder="Status"
-          selectedValue={queryParams.status}
+          resetOptionLabel="All"
+          aria-label="Filter by status"
+          selectedValue={queryParams.status ?? null}
           onChange={(status) => updateFilter({ status })}
         />
         <Select
           className={styles.selectFilter}
           options={levelOptions}
           placeholder="Level"
-          selectedValue={queryParams.level}
+          resetOptionLabel="All"
+          aria-label="Filter by level"
+          selectedValue={queryParams.level ?? null}
           onChange={(level) => updateFilter({ level })}
         />
         <Input
           className={styles.projectFilter}
+          aria-label="Filter by project"
           value={queryParams.project || ""}
           onChange={(e) => updateFilter({ project: e.target.value })}
         />
