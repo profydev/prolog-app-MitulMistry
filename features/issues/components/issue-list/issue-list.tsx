@@ -12,7 +12,7 @@ import {
   LoadingIndicator,
 } from "@features/ui";
 import styles from "./issue-list.module.scss";
-import { IssueStatus, IssueLevel } from "@api/issues.types";
+import { IssueStatus, IssueLevel, IssueListParams } from "@api/issues.types";
 import { Select } from "@features/ui";
 import { Input } from "@features/ui";
 
@@ -46,6 +46,13 @@ function parseQueryParams(query: NextRouter["query"]) {
   return parsed.data;
 }
 
+function removeEmptyValues(filters: Partial<IssueListParams>) {
+  return Object.fromEntries(
+    Object.entries(filters).filter(
+      ([, value]) => Boolean(value) && value !== "",
+    ),
+  );
+}
 export function IssueList() {
   const router = useRouter();
   const queryParams = parseQueryParams(router.query);
@@ -53,11 +60,13 @@ export function IssueList() {
   const issuesPage = useGetIssues(queryParams);
   const projects = useGetProjects();
 
-  const navigateToPage = (newPage: number) =>
+  const updateFilter = (filters: Partial<IssueListParams>) => {
+    const newQueryParams = removeEmptyValues({ ...queryParams, ...filters });
     router.push({
       pathname: router.pathname,
-      query: { ...queryParams, page: newPage },
+      query: newQueryParams,
     });
+  };
 
   if (projects.isLoading || issuesPage.isLoading) {
     return <LoadingIndicator />;
@@ -101,13 +110,21 @@ export function IssueList() {
           className={styles.selectFilter}
           options={statusOptions}
           placeholder="Status"
+          selectedValue={queryParams.status}
+          onChange={(status) => updateFilter({ status })}
         />
         <Select
           className={styles.selectFilter}
           options={levelOptions}
           placeholder="Level"
+          selectedValue={queryParams.level}
+          onChange={(level) => updateFilter({ level })}
         />
-        <Input className={styles.projectFilter} />
+        <Input
+          className={styles.projectFilter}
+          value={queryParams.project || ""}
+          onChange={(e) => updateFilter({ project: e.target.value })}
+        />
       </div>
       <div className={styles.container} data-testid="issue-list">
         <table className={styles.table}>
@@ -133,14 +150,14 @@ export function IssueList() {
           <div>
             <button
               className={styles.paginationButton}
-              onClick={() => navigateToPage(queryParams.page - 1)}
+              onClick={() => updateFilter({ page: queryParams.page - 1 })}
               disabled={queryParams.page === 1}
             >
               Previous
             </button>
             <button
               className={styles.paginationButton}
-              onClick={() => navigateToPage(queryParams.page + 1)}
+              onClick={() => updateFilter({ page: queryParams.page + 1 })}
               disabled={queryParams.page === meta?.totalPages}
             >
               Next
