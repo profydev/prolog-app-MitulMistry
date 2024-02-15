@@ -22,19 +22,22 @@ type SelectOption = {
 // so doesn't make sense to extend it.
 type SelectProps = {
   children?: React.ReactNode;
-  disabled?: boolean;
   options: SelectOption[];
-  selectedValue: Key;
+  disabled?: boolean;
+  selectedValue?: Key;
+  placeholder?: string;
   icon?: React.ReactNode;
   hint?: string;
   errorMessage?: string;
-  onChange: (value: Key) => void;
+  onChange?: (value: Key) => void;
   className?: string;
+  style?: React.CSSProperties;
 };
 
 // Could use label as a separate prop, but here used with children prop
 // to maintain consistency with other components.
 export function Select({
+  className,
   children,
   disabled,
   options,
@@ -47,12 +50,12 @@ export function Select({
 }: SelectProps) {
   return (
     <AriaSelect
-      className={styles.select}
+      {...props}
+      className={classNames(styles.select, className)}
       selectedKey={selectedValue}
       onSelectionChange={onChange}
-      {...props}
     >
-      <Label className={styles.label}>{children}</Label>
+      {children && <Label className={styles.label}>{children}</Label>}
       <Button
         className={classNames(styles.button, errorMessage && styles.error)}
         isDisabled={disabled}
