@@ -15,6 +15,7 @@ import styles from "./issue-list.module.scss";
 import { IssueStatus, IssueLevel, IssueListParams } from "@api/issues.types";
 import { Select } from "@features/ui";
 import { Input } from "@features/ui";
+import { useThrottle } from "@uidotdev/usehooks";
 
 const statusOptions = [
   { label: "Open", value: IssueStatus.open },
@@ -57,7 +58,11 @@ export function IssueList() {
   const router = useRouter();
   const queryParams = parseQueryParams(router.query);
   // console.log(queryParams);
-  const issuesPage = useGetIssues(queryParams);
+  const throttledProjectFilter = useThrottle(queryParams.project, 500);
+  const issuesPage = useGetIssues({
+    ...queryParams,
+    project: throttledProjectFilter,
+  });
   const projects = useGetProjects();
 
   const updateFilter = (filters: Partial<IssueListParams>) => {
