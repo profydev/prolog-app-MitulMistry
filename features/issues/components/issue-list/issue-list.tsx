@@ -1,8 +1,8 @@
-import { NextRouter, useRouter } from "next/router";
-import { z } from "zod";
+import { useThrottle } from "@uidotdev/usehooks";
 import { ProjectLanguage } from "@api/projects.types";
 import { useGetProjects } from "@features/projects";
 import { useGetIssues } from "../../api/use-get-issues";
+import { useFilters } from "./use-filters";
 import { IssueRow } from "./issue-row";
 import {
   Alert,
@@ -10,12 +10,11 @@ import {
   ButtonIcon,
   AlertMessage,
   LoadingIndicator,
+  Select,
+  Input,
 } from "@features/ui";
 import styles from "./issue-list.module.scss";
-import { IssueStatus, IssueLevel, IssueListParams } from "@api/issues.types";
-import { Select } from "@features/ui";
-import { Input } from "@features/ui";
-import { useThrottle } from "@uidotdev/usehooks";
+import { IssueStatus, IssueLevel } from "@api/issues.types";
 
 const statusOptions = [
   { label: "Open", value: IssueStatus.open },
@@ -28,50 +27,14 @@ const levelOptions = [
   { label: "Info", value: IssueLevel.info },
 ];
 
-const QueryParamsSchema = z.object({
-  page: z
-    .string()
-    .optional()
-    .transform((str) => Number(str) || 1),
-  status: z.nativeEnum(IssueStatus).optional(),
-  level: z.nativeEnum(IssueLevel).optional(),
-  project: z.string().optional(),
-});
-
-function parseQueryParams(query: NextRouter["query"]) {
-  const parsed = QueryParamsSchema.safeParse(query);
-  if (!parsed.success) {
-    console.error(parsed.error);
-    return { page: 1 }; // If anything goes wrong, use default object
-  }
-  return parsed.data;
-}
-
-function removeEmptyValues(filters: Partial<IssueListParams>) {
-  return Object.fromEntries(
-    Object.entries(filters).filter(
-      ([, value]) => Boolean(value) && value !== "",
-    ),
-  );
-}
 export function IssueList() {
-  const router = useRouter();
-  const queryParams = parseQueryParams(router.query);
-  // console.log(queryParams);
-  const throttledProjectFilter = useThrottle(queryParams.project, 500);
+  const { filters, updateFilter } = useFilters();
+  const throttledProjectFilter = useThrottle(filters.project, 500);
   const issuesPage = useGetIssues({
-    ...queryParams,
+    ...filters,
     project: throttledProjectFilter,
   });
   const projects = useGetProjects();
-
-  const updateFilter = (filters: Partial<IssueListParams>) => {
-    const newQueryParams = removeEmptyValues({ ...queryParams, ...filters });
-    router.push({
-      pathname: router.pathname,
-      query: newQueryParams,
-    });
-  };
 
   if (projects.isLoading || issuesPage.isLoading) {
     return <LoadingIndicator />;
@@ -117,7 +80,7 @@ export function IssueList() {
           placeholder="Status"
           resetOptionLabel="All"
           aria-label="Filter by status"
-          selectedValue={queryParams.status ?? null}
+          selectedValue={filters.status ?? null}
           onChange={(status) => updateFilter({ status })}
         />
         <Select
@@ -126,13 +89,13 @@ export function IssueList() {
           placeholder="Level"
           resetOptionLabel="All"
           aria-label="Filter by level"
-          selectedValue={queryParams.level ?? null}
+          selectedValue={filters.level ?? null}
           onChange={(level) => updateFilter({ level })}
         />
         <Input
           className={styles.projectFilter}
           aria-label="Filter by project"
-          value={queryParams.project || ""}
+          value={filters.project || ""}
           onChange={(e) => updateFilter({ project: e.target.value })}
         />
       </div>
@@ -160,15 +123,15 @@ export function IssueList() {
           <div>
             <button
               className={styles.paginationButton}
-              onClick={() => updateFilter({ page: queryParams.page - 1 })}
-              disabled={queryParams.page === 1}
+              onClick={() => updateFilter({ page: filters.page - 1 })}
+              disabled={filters.page === 1}
             >
               Previous
             </button>
             <button
               className={styles.paginationButton}
-              onClick={() => updateFilter({ page: queryParams.page + 1 })}
-              disabled={queryParams.page === meta?.totalPages}
+              onClick={() => updateFilter({ page: filters.page + 1 })}
+              disabled={filters.page === meta?.totalPages}
             >
               Next
             </button>
