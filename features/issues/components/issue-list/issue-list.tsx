@@ -10,22 +10,9 @@ import {
   ButtonIcon,
   AlertMessage,
   LoadingIndicator,
-  Select,
-  Input,
 } from "@features/ui";
+import { Filters } from "./filters";
 import styles from "./issue-list.module.scss";
-import { IssueStatus, IssueLevel } from "@api/issues.types";
-
-const statusOptions = [
-  { label: "Open", value: IssueStatus.open },
-  { label: "Resolved", value: IssueStatus.resolved },
-];
-
-const levelOptions = [
-  { label: "Error", value: IssueLevel.error },
-  { label: "Warning", value: IssueLevel.warning },
-  { label: "Info", value: IssueLevel.info },
-];
 
 export function IssueList() {
   const { filters, updateFilter } = useFilters();
@@ -73,32 +60,7 @@ export function IssueList() {
 
   return (
     <>
-      <div className={styles.filters}>
-        <Select
-          className={styles.selectFilter}
-          options={statusOptions}
-          placeholder="Status"
-          resetOptionLabel="All"
-          aria-label="Filter by status"
-          selectedValue={filters.status ?? null}
-          onChange={(status) => updateFilter({ status })}
-        />
-        <Select
-          className={styles.selectFilter}
-          options={levelOptions}
-          placeholder="Level"
-          resetOptionLabel="All"
-          aria-label="Filter by level"
-          selectedValue={filters.level ?? null}
-          onChange={(level) => updateFilter({ level })}
-        />
-        <Input
-          className={styles.projectFilter}
-          aria-label="Filter by project"
-          value={filters.project || ""}
-          onChange={(e) => updateFilter({ project: e.target.value })}
-        />
-      </div>
+      <Filters />
       <div className={styles.container} data-testid="issue-list">
         <table className={styles.table}>
           <thead>

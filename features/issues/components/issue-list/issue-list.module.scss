@@ -18,21 +18,6 @@
   border-collapse: collapse;
 }
 
-.filters {
-  display: flex;
-  justify-content: flex-end;
-  gap: space.$s4;
-  margin-bottom: space.$s6;
-}
-
-.selectFilter {
-  min-width: 10rem;
-}
-
-.projectFilter {
-  min-width: 17.5rem;
-}
-
 .headerRow {
   border-bottom: 1px solid color.$gray-200;
 }
