@@ -105,6 +105,7 @@
   padding: 0.625rem 0.875rem;
   gap: space.$s2;
   color: color.$gray-900;
+  cursor: default;
 
   &[data-selected="true"],
   &:focus-visible {
@@ -115,4 +116,9 @@
   &.selected svg {
     color: color.$primary-600;
   }
+}
+
+.resetOption {
+  color: color.$gray-500;
+  border-bottom: solid 1px color.$gray-200;
 }

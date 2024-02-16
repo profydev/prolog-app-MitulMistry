@@ -10,49 +10,79 @@ import {
   Text,
   Key,
 } from "react-aria-components";
-import classNames from "classnames";
 import styles from "./select.module.scss";
+import classNames from "classnames";
 
-type SelectOption = {
+const RESET_VALUE = "SELECT_RESET_OPTION_VALUE" as const;
+
+type SelectOption<OptionValue> = {
   label: string;
-  value: Key;
+  value: OptionValue;
 };
 
 // React-Aria Select component is not native HTML Select element,
 // so doesn't make sense to extend it.
-type SelectProps = {
-  children: React.ReactNode;
-  disabled: boolean;
-  options: SelectOption[];
-  selectedValue: Key;
+type SelectProps<OptionValue> = {
+  children?: React.ReactNode;
+  options: SelectOption<OptionValue>[];
+  resetOptionLabel?: string;
+  disabled?: boolean;
+  selectedValue?: OptionValue | null;
+  placeholder?: string;
   icon?: React.ReactNode;
   hint?: string;
   errorMessage?: string;
-  onChange: (value: Key) => void;
+  onChange?: (value?: OptionValue) => void;
   className?: string;
+  style?: React.CSSProperties;
 };
 
 // Could use label as a separate prop, but here used with children prop
 // to maintain consistency with other components.
-export function Select({
+export function Select<OptionValue extends Key>({
+  className,
   children,
   disabled,
   options,
+  resetOptionLabel,
   selectedValue,
+  placeholder,
   icon,
   hint,
   errorMessage,
   onChange,
   ...props
-}: SelectProps) {
+}: SelectProps<OptionValue>) {
+  const isValidOption = (value: Key): value is OptionValue => {
+    return options.some((option) => option.value === value);
+  };
+  let handleChange;
+  if (onChange) {
+    handleChange = (value: Key) => {
+      if (isValidOption(value)) {
+        onChange(value);
+      } else {
+        onChange(undefined);
+      }
+    };
+  }
+
+  // Add reset option if resetOptionLabel is provided
+  const internalOptions = [
+    ...(resetOptionLabel
+      ? [{ label: resetOptionLabel, value: RESET_VALUE }]
+      : []),
+    ...options,
+  ];
+
   return (
     <AriaSelect
-      className={styles.select}
-      selectedKey={selectedValue}
-      onSelectionChange={onChange}
       {...props}
+      className={classNames(styles.select, className)}
+      selectedKey={selectedValue}
+      onSelectionChange={handleChange}
     >
-      <Label className={styles.label}>{children}</Label>
+      {children && <Label className={styles.label}>{children}</Label>}
       <Button
         className={classNames(styles.button, errorMessage && styles.error)}
         isDisabled={disabled}
@@ -63,7 +93,13 @@ export function Select({
             {icon}
           </span>
         )}
-        <SelectValue className={styles.value} />
+        <SelectValue className={styles.value}>
+          {(value) =>
+            value.selectedText === RESET_VALUE || value.isPlaceholder
+              ? placeholder
+              : value.selectedText
+          }
+        </SelectValue>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -91,13 +127,17 @@ export function Select({
         <div className={styles.errorMessage}>{errorMessage}</div>
       )}
       <Popover className={styles.popover}>
-        <ListBox className={styles.optionList} items={options}>
+        <ListBox className={styles.optionList} items={internalOptions}>
           {(option) => (
             <ListBoxItem
               key={option.value}
               id={option.value}
               textValue={option.label}
-              className={classNames(styles.option, styles.selected)}
+              className={classNames(
+                styles.option,
+                styles.selected,
+                option.value === RESET_VALUE && styles.resetOption,
+              )}
             >
               {({ isSelected }) => (
                 <>
