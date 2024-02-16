@@ -12,10 +12,11 @@ import {
   LoadingIndicator,
 } from "@features/ui";
 import { Filters } from "./filters";
+import { Pagination } from "./pagination";
 import styles from "./issue-list.module.scss";
 
 export function IssueList() {
-  const { filters, updateFilter } = useFilters();
+  const { filters } = useFilters();
   const throttledProjectFilter = useThrottle(filters.project, 500);
   const issuesPage = useGetIssues({
     ...filters,
@@ -81,28 +82,10 @@ export function IssueList() {
             ))}
           </tbody>
         </table>
-        <div className={styles.paginationContainer}>
-          <div>
-            <button
-              className={styles.paginationButton}
-              onClick={() => updateFilter({ page: filters.page - 1 })}
-              disabled={filters.page === 1}
-            >
-              Previous
-            </button>
-            <button
-              className={styles.paginationButton}
-              onClick={() => updateFilter({ page: filters.page + 1 })}
-              disabled={filters.page === meta?.totalPages}
-            >
-              Next
-            </button>
-          </div>
-          <div className={styles.pageInfo}>
-            Page <span className={styles.pageNumber}>{meta?.currentPage}</span>{" "}
-            of <span className={styles.pageNumber}>{meta?.totalPages}</span>
-          </div>
-        </div>
+        <Pagination
+          currentPage={meta.currentPage ?? 1}
+          totalPages={meta.totalPages ?? 1}
+        ></Pagination>
       </div>
     </>
   );
