@@ -19,6 +19,7 @@ export function Filters() {
   return (
     <div className={styles.filters}>
       <Select
+        data-testid="status-filter"
         className={styles.selectFilter}
         options={statusOptions}
         placeholder="Status"
@@ -28,6 +29,7 @@ export function Filters() {
         onChange={(status) => updateFilter({ status })}
       />
       <Select
+        data-testid="level-filter"
         className={styles.selectFilter}
         options={levelOptions}
         placeholder="Level"
@@ -37,6 +39,7 @@ export function Filters() {
         onChange={(level) => updateFilter({ level })}
       />
       <Input
+        data-testid="project-filter"
         className={styles.projectFilter}
         aria-label="Filter by project"
         value={filters.project || ""}
