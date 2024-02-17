@@ -4,6 +4,7 @@ import { Routes } from "@config/routes";
 import { ProjectLanguage, ProjectStatus } from "@api/projects.types";
 import type { Project } from "@api/projects.types";
 import styles from "./project-card.module.scss";
+import { IssueListQueryParams } from "@features/issues";
 
 type ProjectCardProps = {
   project: Project;
@@ -26,6 +27,18 @@ const statusToText = {
   [ProjectStatus.warning]: "Warning",
   [ProjectStatus.error]: "Critical",
 };
+
+// Creates the href to the issues page with the project query params.
+// Ensures query params match the required name and type on the issues page.
+function getIssuesPageHref(
+  projectName: NonNullable<IssueListQueryParams["project"]>,
+) {
+  const projectQueryName: keyof IssueListQueryParams = "project";
+  const queryParams = new URLSearchParams({
+    [projectQueryName]: projectName,
+  });
+  return `${Routes.issues}?${queryParams}`;
+}
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const { name, language, numIssues, numEvents24h, status } = project;
@@ -60,7 +73,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
       <div className={styles.bottomContainer}>
-        <Link href={Routes.issues} className={styles.viewIssuesAnchor}>
+        <Link
+          href={getIssuesPageHref(name)}
+          className={styles.viewIssuesAnchor}
+        >
           View issues
         </Link>
       </div>

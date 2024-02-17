@@ -13,6 +13,8 @@ const QueryParamsSchema = z.object({
   project: z.string().optional(),
 });
 
+export type IssueListQueryParams = z.infer<typeof QueryParamsSchema>;
+
 function parseQueryParams(query: NextRouter["query"]) {
   const parsed = QueryParamsSchema.safeParse(query);
   if (!parsed.success) {
